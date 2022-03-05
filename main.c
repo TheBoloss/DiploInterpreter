@@ -1,3 +1,8 @@
+/* Names:
+    - TiboTinyInterpreter TTI
+    - AnotherFuckingProgrammingLanguage AFPL
+ */
+
 #ifdef _WIN32
 #include <Windows.h> // Windows
 #else
