@@ -1,3 +1,5 @@
+![](Logo256.ico)
+
 # DiplodocusInterpreter
 ### Main code interpreter for *Diplodocus* language
 
