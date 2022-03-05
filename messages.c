@@ -1,13 +1,13 @@
 void welcome_message()
 {
-    printf("       _____  _____  ___       \n");
-    printf("      |_   _||_   _||_ _|      \n");
-    printf("        | |    | |   | |       \n");
-    printf("        |_|    |_|  |___|      \n\n");
+    printf("             _  _  _ \n");
+    printf("          __| |(_)(_)\n");
+    printf("         / _` || || |\n");
+    printf("         \\__/_||_||_|\n\n");
 
     printf("###############################\n");
     printf("#                             #\n");
-    printf("#    Tibo Tiny Interpreter    #\n");
+    printf("#    DiplodocusInterpreter    #\n");
     printf("#         - Welcome -         #\n");
     printf("#                             #\n");
     printf("###############################\n");
