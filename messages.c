@@ -1,3 +1,6 @@
+#include <stdio.h>
+#include "messages.h"
+
 void welcome_message()
 {
     printf("             _  _  _ \n");

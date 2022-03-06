@@ -7,10 +7,10 @@
 #include <string.h>
 #include <stdlib.h>
 #include <sys/time.h>
-#include "messages.c"
+#include "constants.h"
+#include "messages.h"
+#include "parser.h"
 
-#define INPUT_FNAME_MAX_LENGTH 100
-#define CONFIG_FLAGS_MAX_LENGTH 20
 
 struct settings
 {
@@ -18,18 +18,9 @@ struct settings
     char configFlags[CONFIG_FLAGS_MAX_LENGTH];
 } globalSettings;
 
-void execute_program(FILE *file)
-{
-    char c;
-    while ((c = fgetc(file)) != EOF)
-    {
-        printf("%c", c);
-    }
-}
 
 int main(int argc, char *argv[])
 {
-
     struct timeval stop, start;
     gettimeofday(&start, NULL);
 
@@ -48,21 +39,13 @@ int main(int argc, char *argv[])
             printf("\t-c\tConfig\n");
             printf("\t-h\tDisplay this help message\n");
             return 0;
-            // continue;
         }
         if (!strcmp(argv[i], "-i") && i < argc - 1)
         {
             strncpy(globalSettings.inputFName, argv[i + 1], INPUT_FNAME_MAX_LENGTH - 1);
-            printf("Program name is: %s\n\n", globalSettings.inputFName);
-            // continue;
         } else
         {
             return no_file_specified_message();
-        }
-        if (!strcmp(argv[i], "-c") && i < argc - 1)
-        {
-            strncpy(globalSettings.configFlags, argv[i + 1], CONFIG_FLAGS_MAX_LENGTH - 1);
-            // continue;
         }
     }
 
@@ -74,13 +57,9 @@ int main(int argc, char *argv[])
     }
 
     // printf(argv[i]);
-    welcome_message();
-    execute_program(file);
-
-
-    // if(!isFileSpecified) {
-    //     return noFileSpecifiedMessage();
-    // }
+    // welcome_message();
+    // execute_program(file);
+    int parseReturn = parse(file);
 
     gettimeofday(&stop, NULL);
     double executionTime = (stop.tv_sec + stop.tv_usec / 1e6 - // 1e6 for seconds
@@ -88,5 +67,6 @@ int main(int argc, char *argv[])
 
     printf("\n\nExecuted program in %f ms.\n", executionTime);
 
-    return 0;
+    if(parseReturn) printf("Program returned error.");
+    return parseReturn;
 }
