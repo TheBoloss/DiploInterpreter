@@ -1,7 +1,7 @@
-![](https://raw.githubusercontent.com/TheBoloss/DiplodocusInterpreter/master/Logo256.ico?token=GHSAT0AAAAAABRAGHLS76EG4K4IR6QSA2OSYREPZPQ)
+![](assets/Logo256.ico)
 
-# DiplodocusInterpreter
-### Main code interpreter for *Diplodocus* language
+# DiploInterpreter
+### Main code interpreter for *Diplo* language
 
 ## Usage
 ### Command

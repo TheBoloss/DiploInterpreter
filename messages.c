@@ -10,7 +10,7 @@ void welcome_message()
 
     printf("###############################\n");
     printf("#                             #\n");
-    printf("#    DiplodocusInterpreter    #\n");
+    printf("#      DiploInterpreter      #\n");
     printf("#         - Welcome -         #\n");
     printf("#                             #\n");
     printf("###############################\n");
