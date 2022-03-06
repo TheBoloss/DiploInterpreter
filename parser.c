@@ -4,6 +4,7 @@
 #include "str.h"
 #include "messages.h"
 #include "errors.h"
+#include "std_functions.h"
 
 int parse(FILE *inputFile)
 {
@@ -14,13 +15,15 @@ int parse(FILE *inputFile)
         char *_lineContentTrimmed = str_trim(_lineContent);
 
         // Debug only
-        if(EXECUTION_DEBUG) printf("Executing line %d\n%s\n", _lineNumber, _lineContent);
+        if(EXECUTION_DEBUG) printf("Reading line %d\n%s\n", _lineNumber, _lineContent);
 
         // If line is not empty
         if (strlen(_lineContentTrimmed) != 0)
         {
+            int explodedTrimmedLength = 0;
             int explodedLength = 0;
-            char **exploded = split(_lineContentTrimmed, " ", 0, &explodedLength);
+            split(_lineContent, " ", 0, &explodedLength);
+            char **exploded = split(_lineContentTrimmed, " ", 0, &explodedTrimmedLength);
             
             char *mainStatement = exploded[0];
             int mainStatementExplodedLength = 0;
@@ -38,17 +41,14 @@ int parse(FILE *inputFile)
                 // console.out
                 if (strcmp(mainStatementExploded[1], "out") == 0) 
                 {
-                    if(explodedLength < 2)
+                    if(explodedTrimmedLength < 2)
                     {
                         printf("Argument error: Expecting argument after '%s' on line %d.", mainStatement, _lineNumber);
                         return 1;
                     }
 
-                    if(str_count_occurrences(exploded[1], '"') % 2)
-                    {
-                        printf("Quotes error: Invalid quotes on line %d.", _lineNumber);
-                        return 1;
-                    }
+                    char *quoteContent = str_get_quotes_content(_lineContent);
+                    std_console_out(&quoteContent);
                 }
                 else
                 {

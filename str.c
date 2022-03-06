@@ -123,7 +123,19 @@ int str_count_occurrences(char *str, char search)
         if(str[i] == search)
         {
             count++;
-		}
+        }
     }
     return count;
+}
+
+char *str_get_quotes_content(char *str)
+{
+    char tmp[MAX_LINE_SIZE];
+    char *subString; // the "result"
+    strcpy(tmp, str);
+
+    subString = strtok(tmp, "\""); // find the first double quote
+    subString = strtok(NULL, "\"");   // find the second double quote
+
+    return subString;
 }

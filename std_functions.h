@@ -3,6 +3,6 @@
 
 #include "constants.h"
 
-
+int std_console_out(char **strp);
 
 #endif
