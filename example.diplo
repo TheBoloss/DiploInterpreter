@@ -1,1 +1,19 @@
-console.out "Hello, World!"
+// My first Diplo program
+// Insert 72
+// Out
+// Pointer +
+// Insert 101
+// Out
+// Pointer +
+// Insert 108
+// Out
+// Pointer +
+// Insert 108
+// Out
+// Pointer +
+// Insert 111
+// Out
+
+Begin Repeat
+
+End Repeat

@@ -10,5 +10,6 @@ char** split(char* chaine,const char* delim,int vide, int *finalSize);
 int str_array_len(char **array);
 int str_count_occurrences(char *str, char search);
 char *str_get_quotes_content(char *str);
+void str_tolower(char *str);
 
 #endif

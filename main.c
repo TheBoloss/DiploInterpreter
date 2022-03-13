@@ -21,6 +21,10 @@ struct settings
 
 int main(int argc, char *argv[])
 {
+    // unsigned char aa[] = {130, 'h', 130, '\0'};
+    // printf("%s", aa);
+    // return -1;
+
     struct timeval stop, start;
     gettimeofday(&start, NULL);
 

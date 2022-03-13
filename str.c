@@ -139,3 +139,10 @@ char *str_get_quotes_content(char *str)
 
     return subString;
 }
+
+void str_tolower(char *str)
+{
+    for(int i = 0; str[i]; i++){
+        str[i] = tolower(str[i]);
+    }
+}
