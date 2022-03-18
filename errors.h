@@ -3,6 +3,6 @@
 
 #include "constants.h"
 
-int error_statement(char *message);
+int derr(const int errorCode, char *message);
 
 #endif

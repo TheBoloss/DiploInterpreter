@@ -1,8 +1,9 @@
 #include <stdio.h>
 #include "errors.h"
+#include "constants.h"
 
-int error_statement(char *message)
+int derr(const int errorCode, char *message)
 {
-    printf("Statement error: %s", message);
+    printf("/!\\ (%#x) %s %s", errorCode, MSG_FATAL_ERROR, message);
     return 1;
 }
