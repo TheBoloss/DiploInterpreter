@@ -1,5 +1,5 @@
-#ifndef str_h
-#define str_h
+#ifndef DEF_STR
+#define DEF_STR
 
 #include "constants.h"
 

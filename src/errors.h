@@ -1,5 +1,5 @@
-#ifndef errors_h
-#define errors_h
+#ifndef DEF_ERRORS
+#define DEF_ERRORS
 
 #include "constants.h"
 
