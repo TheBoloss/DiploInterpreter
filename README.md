@@ -1,20 +1,19 @@
-![](assets/Logo256.ico)
+![](assets/Banner.png)
+
+![](https://licensebuttons.net/l/by-nc-nd/3.0/88x31.png)
+*Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License (CC BY-NC-ND 4.0)*
 
 # DiploInterpreter
 ### Main code interpreter for *Diplo* language
 
-## Usage
-### Command
-```
-dii -i <FileName>
-```
-- ```-i``` input file name
-- Optional arguments:
-    - ```-h``` show help message
+## 📖 Documentation
 
-### Example
-```
-dii -i prog.di
-```
+See **[TheBoloss/Diplo](https://github.com/TheBoloss/Diplo)** to read documentation.
 
-### Created 03 Mar. 2022
+## 📃 License
+
+This project is licensed under a **Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License *(CC BY-NC-ND 4.0)***. [See License file](LICENSE)
+
+---
+
+*Created 03 Mar. 2022*
