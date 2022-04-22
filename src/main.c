@@ -1,76 +1,126 @@
+/*
+  Diplo
+  2022. Eugène Villotte
+*/
+
+
 #ifdef _WIN32
 #include <Windows.h> // Windows
 #else
 #include <unistd.h> // Linux
 #endif
+#include <stdbool.h>
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include <sys/time.h>
+// #include <conio.h>
 #include "constants.h"
-#include "messages.h"
-#include "parser.h"
+#include "user/config.h"
+#include "user/program.h"
+#include "tokens.h"
+// #include "parser.h"
+#include "tokenizer.h"
+#include "preprocessor.h"
+#include "config_flags.h"
+#include "colors.h"
 
-
-struct settings
-{
-    char inputFName[INPUT_FNAME_MAX_LENGTH];
-    char configFlags[CONFIG_FLAGS_MAX_LENGTH];
-} globalSettings;
+settings GlobalSettings;
+program Program;
+LineTokens Lines[MAX_LINE_NUMBER];
 
 
 int main(int argc, char *argv[])
 {
-    // unsigned char aa[] = {130, 'h', 130, '\0'};
-    // printf("%s", aa);
-    // return -1;
+    // FILE *keyFile = NULL;
+    // keyFile = fopen(BETA_KEY, "r");
+    // if (keyFile == NULL)
+    // {
+    //     red_bold();
+    //     printf("Beta testers only: you need to have the key file in ./key/.\n");
+    //     color_reset();
+    //     return 1;
+    // }
+    // fclose(keyFile);
 
     struct timeval stop, start;
     gettimeofday(&start, NULL);
 
-    if (argc < 2)
+    // Input file argument
+    if (argv[1])
     {
-        return no_file_specified_message();
+        strncpy(GlobalSettings.inputFName, argv[1], INPUT_FNAME_MAX_LENGTH - 1);
     }
-    
-
-    for (int i = 1; i < argc; i+=2)
+    else
     {
-        if (!strcmp(argv[i], "-h"))
-        {
-            printf("Usage: %s -i <File>\n", argv[0]);
-            printf("Optional arguments:\n");
-            printf("\t-c\tConfig\n");
-            printf("\t-h\tDisplay this help message\n");
-            return 0;
-        }
-        if (!strcmp(argv[i], "-i") && i < argc - 1)
-        {
-            strncpy(globalSettings.inputFName, argv[i + 1], INPUT_FNAME_MAX_LENGTH - 1);
-        } else
-        {
-            return no_file_specified_message();
-        }
+        printf("Diplo v%s\n", DIPLO_VERSION);
+        printf("Eug%cne Villotte\n\n", 138);
+        blue_bold();
+        printf("Usage: ");
+        white();
+        printf("%s ", argv[0]);
+        yellow();
+        printf("<InputFile> ");
+        magenta();
+        printf("[Config]\n");
+        color_reset();
+        return 0;
     }
 
-    FILE *file = fopen(globalSettings.inputFName, "r");
+    // Config argument
+    if (argv[2])
+    {
+        strncpy(GlobalSettings.configFlags, argv[2], CONFIG_FLAGS_MAX_LENGTH - 1);
+        gray();
+        size_t configLength = strlen(argv[2]);
+        if (config_flag_exists('d'))
+        {
+            for (size_t i = 0; i < configLength; i++)
+            {
+                printf("Config '%c' enabled.\n", argv[2][i]);
+            }
+        }
+        color_reset();
+    }
+
+    FILE *file = fopen(GlobalSettings.inputFName, "r");
     if (file == NULL)
     {
-        printf("Fatal: Error opening file. The file '%s' cannot be opened. Please check if it exists and retry.\n", globalSettings.inputFName);
+        red_bold();
+        printf("Fatal: ");
+        color_reset();
+        printf("Error opening file. The file '%s' cannot be opened. Please check if it exists and retry.\n", GlobalSettings.inputFName);
         return 1;
     }
 
-    // printf(argv[i]);
-    // welcome_message();
-    // execute_program(file);
-    int parseReturn = parse(file);
+    int tokenizerRet = tokenize_file(file);
+    if (tokenizerRet != 0) return tokenizerRet;
+    int preprocessorIndexLabelsRet = index_labels(file);
+    if (preprocessorIndexLabelsRet != 0) return preprocessorIndexLabelsRet;
 
-    gettimeofday(&stop, NULL);
-    double executionTime = (stop.tv_sec + stop.tv_usec / 1e6 - // 1e6 for seconds
-                        start.tv_sec - start.tv_usec / 1e6) * 1000;
 
-    printf("\n\nExecuted program in %f ms.\n", executionTime);
+    // int parseReturn = parse(file);
+    // fclose(file);
 
-    if(parseReturn) printf("Program returned error.");
-    return parseReturn;
+    // gettimeofday(&stop, NULL);
+    // double executionTime = (stop.tv_sec + stop.tv_usec / 1e6 -
+    //                     start.tv_sec - start.tv_usec / 1e6) * 1000;
+    // if (!parseReturn && !config_flag_exists('t'))
+    // {
+    //     green();
+    //     printf("\n\nScript executed successfully in %f ms.", executionTime);
+    //     color_reset();
+    // }
+
+    // if(parseReturn) printf("\nProgram returned error.\n");
+
+    // if (config_flag_exists('e'))
+    // {
+    //     return 0;
+    // }
+    // gray();
+    // printf("Press any key to exit\n");
+    // getch();
+    // color_reset();
+    // return parseReturn;
 }

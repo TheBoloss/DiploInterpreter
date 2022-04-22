@@ -27,23 +27,23 @@ char *str_trim(char *str)
     return str;
 }
 
-char **str_explode(char* str, char c)
-{
-    static char* tmp[MAX_LINE_SIZE];
-    int current = 0;
-    tmp[current++] = str;
-    while( *str ) {
-        if ( *str == c ) {
-            str = '\0';
-            tmp[current++] = str+1;
-        }
-        ++str;
-    }
-    tmp[ current ] = 0;
-    return tmp;
-}
+// char **str_explode(char* str, char c)
+// {
+//     static char* tmp[MAX_LINE_SIZE];
+//     int current = 0;
+//     tmp[current++] = str;
+//     while( *str ) {
+//         if ( *str == c ) {
+//             str = '\0';
+//             tmp[current++] = str+1;
+//         }
+//         ++str;
+//     }
+//     tmp[ current ] = 0;
+//     return tmp;
+// }
 
-char** split(char* chaine, const char* delim, int vide, int *finalSize)
+char **str_explode(char* string, const char* delim, int vide, int *finalSize)
 {
     
     char** tab=NULL;                    //tableau de chaine, tableau resultat
@@ -54,7 +54,7 @@ char** split(char* chaine, const char* delim, int vide, int *finalSize)
     
     int sizeDelim=strlen(delim);   //taille du delimiteur
 
-    largestring = chaine;          //comme ca on ne modifie pas le pointeur d'origine
+    largestring = string;          //comme ca on ne modifie pas le pointeur d'origine
                                    //(faut ke je verifie si c bien nécessaire)
     
 
