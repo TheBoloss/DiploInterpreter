@@ -1,0 +1,2 @@
+gcc src/*.c src/debugger/*.c assets/icon.res -o bin/1.0.0/windows/amd64/diplo
+bin/1.0.0/windows/amd64/diplo

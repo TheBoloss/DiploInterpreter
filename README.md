@@ -1,6 +1,7 @@
 ![](assets/Banner.png)
 
 ![](https://licensebuttons.net/l/by-nc-nd/3.0/88x31.png)
+
 *Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License (CC BY-NC-ND 4.0)*
 
 # DiploInterpreter

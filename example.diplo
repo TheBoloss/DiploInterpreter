@@ -1,5 +1,9 @@
-Insert 0
-Begin Repeat 254
+InsertL 72, 101, 108, 108, 111, 32, 87, 111, 114, 108, 100, 33
+
+Label PrintLoop
     Out
-    Insert +
-End Repeat
+    Pointer +
+    Comp $value, 0
+JumpNotEq PrintLoop
+
+Exit 0

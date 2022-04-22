@@ -1,3 +1,0 @@
-- Check if arg is number
-- Comments //a and // a
-- Errors with sprintf();
