@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include "prerunner.h"
 #include "constants.h"
 #include "user/config.h"
 #include "user/program.h"

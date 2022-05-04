@@ -1,5 +1,5 @@
-#ifndef DEF_PREPROCESSOR_H
-#define DEF_PREPROCESSOR_H
+#ifndef DEF_PRERUNNER_H
+#define DEF_PRERUNNER_H
 
 #include <stdio.h>
 
