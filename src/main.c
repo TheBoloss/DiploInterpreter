@@ -21,7 +21,8 @@
 #include "tokens.h"
 // #include "parser.h"
 #include "tokenizer.h"
-#include "preprocessor.h"
+#include "prerunner.h"
+#include "runner.h"
 #include "config_flags.h"
 #include "colors.h"
 
@@ -54,7 +55,7 @@ int main(int argc, char *argv[])
     else
     {
         printf("Diplo v%s\n", DIPLO_VERSION);
-        printf("Eug%cne Villotte\n\n", 138);
+        printf("Eug%cne Villotte (https://github.com/TheBoloss/Diplo)\n\n", 138);
         blue_bold();
         printf("Usage: ");
         white();
@@ -63,7 +64,9 @@ int main(int argc, char *argv[])
         printf("<InputFile> ");
         magenta();
         printf("[Config]\n");
-        color_reset();
+        gray();
+        printf("\nPress ENTER to exit\n");
+        getchar();
         return 0;
     }
 
@@ -95,32 +98,34 @@ int main(int argc, char *argv[])
 
     int tokenizerRet = tokenize_file(file);
     if (tokenizerRet != 0) return tokenizerRet;
-    int preprocessorIndexLabelsRet = index_labels(file);
-    if (preprocessorIndexLabelsRet != 0) return preprocessorIndexLabelsRet;
+    int prerunnerIndexLabelsRet = index_labels(file);
+    if (prerunnerIndexLabelsRet != 0) return prerunnerIndexLabelsRet;
+    int runnerRet = run_tokens();
+    // if (runnerRet != 0) return runnerRet;
 
 
     // int parseReturn = parse(file);
-    // fclose(file);
+    fclose(file);
 
-    // gettimeofday(&stop, NULL);
-    // double executionTime = (stop.tv_sec + stop.tv_usec / 1e6 -
-    //                     start.tv_sec - start.tv_usec / 1e6) * 1000;
-    // if (!parseReturn && !config_flag_exists('t'))
-    // {
-    //     green();
-    //     printf("\n\nScript executed successfully in %f ms.", executionTime);
-    //     color_reset();
-    // }
+    gettimeofday(&stop, NULL);
+    double executionTime = (stop.tv_sec + stop.tv_usec / 1e6 -
+                        start.tv_sec - start.tv_usec / 1e6) * 1000;
+    if (!runnerRet && config_flag_exists('t'))
+    {
+        green();
+        printf("\n\nScript executed successfully in %f ms.", executionTime);
+        color_reset();
+    }
 
-    // if(parseReturn) printf("\nProgram returned error.\n");
+    if(runnerRet) printf("\nProgram returned error.\n");
 
-    // if (config_flag_exists('e'))
-    // {
-    //     return 0;
-    // }
-    // gray();
-    // printf("Press any key to exit\n");
-    // getch();
-    // color_reset();
-    // return parseReturn;
+    if (config_flag_exists('e'))
+    {
+        return runnerRet;
+    }
+    gray();
+    printf("\nPress ENTER to exit\n");
+    getchar();
+    color_reset();
+    return runnerRet;
 }

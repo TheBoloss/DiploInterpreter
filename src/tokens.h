@@ -1,7 +1,8 @@
 #ifndef DEF_TOKENS_H
 #define DEF_TOKENS_H
 
-enum STATEMENTS {
+typedef enum STATEMENTS
+{
     STATEMENT_NULL,
     STATEMENT_OUT,
     STATEMENT_GET,
@@ -18,7 +19,7 @@ enum STATEMENTS {
     STATEMENT_JL,      // JumpLess
     STATEMENT_JLE,     // JumpLessEq
     STATEMENT_LABEL
-};
+} statement_t;
 
 static const char *STATEMENTS_STR[] = {
     "",
@@ -48,10 +49,19 @@ typedef enum
     SIGN_MODULO = '%'
 } arg_sign_t;
 
-typedef enum {
+typedef enum
+{
     ARG_TYPE_INT,
     ARG_TYPE_STR
 } arg_type_t;
 
+typedef enum
+{
+    VAR_POINTER,
+    VAR_VALUE
+} diplo_variable_t;
+
+#define VAR_POINTER "$pointer"
+#define VAR_VALUE   "$value"
 
 #endif

@@ -1,6 +1,7 @@
 #ifndef DEF_USER_PROGRAM
 #define DEF_USER_PROGRAM
 
+#include <stdbool.h>
 #include "../constants.h"
 #include "../tokens.h"
 
@@ -15,6 +16,7 @@ typedef struct
 {
     int lineNumber;
     int statement;
+    int argsCount;
     LineArg args[MAX_LINE_ARGS_NUMBER];
 } LineTokens;
 extern LineTokens Lines[MAX_LINE_NUMBER];
@@ -33,6 +35,14 @@ typedef struct
     DiploLabel labels[MAX_LABEL_NUMBER];
     unsigned char array[DIPLO_ARRAY_SIZE];
     int pointer;
+    struct {
+        bool eq;
+        bool notEq;
+        bool greater;
+        bool greaterEq;
+        bool less;
+        bool lessEq;
+    } lastComp;
 } program;
 extern program Program;
 

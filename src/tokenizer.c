@@ -47,13 +47,14 @@ int tokenize_file(FILE *file)
             Program.lines = fileLineNumber;
             continue;
         }
-        int lineStatement = get_statement(lineTokens[0]);
+        statement_t lineStatement = get_statement(lineTokens[0]);
         // If line has STATEMENT_NULL (0, usually comments //), skip it
         if (lineStatement == 0)
         {
             Lines[fileLineNumber].statement = 0;
             fileLineNumber++;
             Program.lines = fileLineNumber;
+            // Lines[i].argsCount = 0;
             continue;
         }
         // Throw error if statement is not valid
@@ -80,6 +81,8 @@ int tokenize_file(FILE *file)
         // Tokenize each argument
         for (int i = 0; i < lineArgsCount; i++)
         {
+            Lines[fileLineNumber].argsCount = lineArgsCount;
+
             char *argTrimmed = str_trim(lineArgs[i]);
             // Debug
             if (config_flag_exists('d'))
@@ -152,7 +155,7 @@ int tokenize_file(FILE *file)
                 color_reset();
             }
         }
-
+        
         fileLineNumber++;
         Program.lines = fileLineNumber;
     }
@@ -172,7 +175,7 @@ int tokenize_file(FILE *file)
     return 0;
 }
 
-int get_statement(char *statement)
+statement_t get_statement(char *statement)
 {
     int found = -1;
     if (strcmp(statement, "//") == 0)
