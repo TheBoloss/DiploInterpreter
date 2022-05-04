@@ -15,6 +15,9 @@ See **[TheBoloss/Diplo](https://github.com/TheBoloss/Diplo)** to read documentat
 
 This project is licensed under a **Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License *(CC BY-NC-ND 4.0)***. [See License file](LICENSE)
 
+## Changelog
+[View changelog](CHANGELOG)
+
 ---
 
 *Created 03 Mar. 2022*
