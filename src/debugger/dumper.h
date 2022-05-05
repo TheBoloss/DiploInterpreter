@@ -5,6 +5,5 @@
 #include "../user/program.h"
 
 int dump_array(char *array, FILE *outputFile);
-int dump_tokens(LineTokens Lines[])
 
 #endif

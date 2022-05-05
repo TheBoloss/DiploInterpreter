@@ -1,8 +1,0 @@
-#ifndef DEF_PARSER
-#define DEF_PARSER
-
-int parse(FILE *inputFile);
-int parse_line(const int lineNumber);
-int search_line(char *search, int occurence, int reverse);
-
-#endif

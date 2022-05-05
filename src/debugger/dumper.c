@@ -26,8 +26,3 @@ int dump_array(char *array, FILE *outputFile)
     fprintf(outputFile, "\n\t]\n");
     fprintf(outputFile, "}");
 }
-
-int dump_tokens(LineTokens Lines[])
-{
-
-}

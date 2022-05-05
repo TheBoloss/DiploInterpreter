@@ -1,6 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#ifdef _WIN32
+#include <conio.h>
+#else
+#include <termios.h>
+#include <unistd.h>
+#endif
 #include "constants.h"
 #include "user/config.h"
 #include "user/program.h"
@@ -10,6 +16,27 @@
 #include "tokens.h"
 #include "runner.h"
 #include "labels.h"
+
+#ifndef _WIN32
+static struct termios oldt;
+
+void restore_terminal_settings(void)
+{
+    tcsetattr(0, TCSANOW, &oldt);  /* Apply saved settings */
+}
+
+void disable_waiting_for_enter(void)
+{
+    struct termios newt;
+
+    /* Make terminal read 1 char at a time */
+    tcgetattr(0, &oldt);  /* Save terminal settings */
+    newt = oldt;  /* Init new settings */
+    newt.c_lflag &= ~(ICANON | ECHO);  /* Change settings */
+    tcsetattr(0, TCSANOW, &newt);  /* Apply settings */
+    atexit(restore_terminal_settings); /* Make sure settings will be restored when program ends  */
+}
+#endif
 
 int run_tokens()
 {
@@ -31,7 +58,14 @@ int run_tokens()
                 break;
 
             case STATEMENT_GET:
+                #ifdef _WIN32
+                Program.array[Program.pointer] = (char)getche();
+                #else
+                int ch;
+                disable_waiting_for_enter();
                 Program.array[Program.pointer] = (char)getchar();
+                printf("%c", Program.array[Program.pointer]);
+                #endif
                 break;
 
             case STATEMENT_INSERT:

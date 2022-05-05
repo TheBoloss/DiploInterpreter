@@ -14,17 +14,21 @@
 #include <string.h>
 #include <stdlib.h>
 #include <sys/time.h>
-// #include <conio.h>
+#ifdef _WIN32
+#include <conio.h>
+#else
+#include <ncurses.h>
+#endif
 #include "constants.h"
 #include "user/config.h"
 #include "user/program.h"
 #include "tokens.h"
-// #include "parser.h"
 #include "tokenizer.h"
 #include "prerunner.h"
 #include "runner.h"
 #include "config_flags.h"
 #include "colors.h"
+#include "debugger/dumper.h"
 
 settings GlobalSettings;
 program Program;
@@ -123,8 +127,9 @@ int main(int argc, char *argv[])
     {
         return runnerRet;
     }
+    
     gray();
-    printf("\nPress ENTER to exit\n");
+    printf("%c\nPress ENTER to exit\n", 13);
     getchar();
     color_reset();
     return runnerRet;
